@@ -29,6 +29,11 @@
     path: temp.csv
   register: csv_output
 
+- name: Set Asana Stats
+  set_stats:
+    data:
+      csv_output: "{{ csv_output }}"
+
 - name: Print out CSV data
   debug:
     var: csv_output.list
