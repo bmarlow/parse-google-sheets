@@ -1,0 +1,37 @@
+---
+# tasks file for parse-google-sheets
+- name: Build auth object from vars
+  set_fact:
+    auth:
+      auth_provider_x509_cert_url: "{{ auth_provider_x509_cert_url }}"
+      auth_uri: "{{ auth_uri }}"
+      client_x509_cert_url: "{{ client_x509_cert_url }}"
+      client_email: "{{ client_email }}"
+      client_id: "{{ client_id }}"
+      private_key: "{{ private_key }}"
+      private_key_id: "{{ private_key_id }}"
+      project_id: "{{ project_id }}"
+      token_uri: "{{ token_uri }}"
+  no_log: true
+
+- name: Fetch sheet data
+  ansible.builtin.command: 
+    argv:
+      - "/usr/bin/python3"
+      - "{{ role_path }}/files/sheet_to_csv.py"
+      - "-a {{ auth | to_json }}"
+      - "-s {{ spreadsheet_id }}"
+      - "-r {{ range }}"
+  register: py_output
+
+- name: Use CSV module to read in data
+  read_csv:
+    path: temp.csv
+  register: csv_output
+
+- name: Print out CSV data
+  debug:
+    var: csv_output.list
+
+
+

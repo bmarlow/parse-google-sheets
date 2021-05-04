@@ -1,0 +1,7 @@
+---
+- name: "Run parse-google-sheets Role"
+  hosts: all
+  tasks:
+  - name: "Run the parse-google-sheets role"
+    include_role: 
+      name: parse-google-sheets
