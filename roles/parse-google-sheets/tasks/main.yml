@@ -27,7 +27,7 @@
 - name: Use CSV module to read in data
   read_csv:
     path: temp.csv
-  register: csv_output
+  register: csv_opps
 
 - name: Set Asana Stats
   set_stats:
