@@ -32,11 +32,11 @@
 - name: Set Asana Stats
   set_stats:
     data:
-      csv_data: "{{ csv_output.list }}"
+      csv_data: "{{ csv_opps }}"
 
 - name: Print out CSV data
   debug:
-    var: csv_output.list
+    var: csv_opps.list
 
 
 
