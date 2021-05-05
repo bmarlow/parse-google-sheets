@@ -27,16 +27,16 @@
 - name: Use CSV module to read in data
   read_csv:
     path: temp.csv
-  register: csv_opps
+  register: csvopps
 
 - name: Set Asana Stats
   set_stats:
     data:
-      csv_opps: "{{ csv_opps }}"
+      csvopps: "{{ csvopps }}"
 
 - name: Print out CSV data
   debug:
-    var: csv_opps.list
+    var: csvopps.list
 
 
 
