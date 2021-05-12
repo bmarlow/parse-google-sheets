@@ -12,12 +12,16 @@ parser = argparse.ArgumentParser()
 parser.add_argument("-a", "--auth", help="authentication dictionary", dest='auth')
 parser.add_argument("-s", "--spreadsheet_id", help="authentication dictionary", dest='spreadsheet_id')
 parser.add_argument("-r", "--range", help="authentication dictionary", dest='range')
+parser.add_argument("-p", "--pod", help="the abbreviated pod name, eg: nws,swe, we", dest='pod' )
+parser.add_argument("-t", "--timestamp", help="a timestamp to avoid file collissions", dest='timestamp' )
 
 # grab the args from the argparse object
 args = parser.parse_args()
 
-# define prettier names and strip leading whitespace
+# define prettier names
 auth = args.auth
+pod = args.pod
+timestamp = args.timestamp
 
 # TODO: figure out where leading whitespace comes from...
 spreadsheet_id = args.spreadsheet_id.strip()
@@ -59,7 +63,7 @@ try:
   data_rows = result.get('values')[1:]
 
   # write the data to a CSV for parsing
-  with open('temp.csv', 'w') as f:
+  with open(pod + '-' + timestamp + '.csv', 'w') as f:
     write = csv.writer(f)
     write.writerow(row_headers)
     for line in data_rows:

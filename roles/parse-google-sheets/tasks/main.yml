@@ -14,6 +14,10 @@
       token_uri: "{{ token_uri }}"
   no_log: true
 
+- name: Set timestamp for filenames
+  set_fact:
+    timestamp: "{{ ansible_date_time.iso8601 }}"
+
 - name: Fetch sheet data
   ansible.builtin.command: 
     argv:
@@ -22,12 +26,19 @@
       - "-a {{ auth | to_json }}"
       - "-s {{ spreadsheet_id }}"
       - "-r {{ range }}"
+      - "-p {{ region }}"
+      - "-t {{ timestamp }}"
   register: py_output
 
 - name: Use CSV module to read in data
   read_csv:
-    path: temp.csv
+    path: "{{ region }}-{{ timestamp }}.csv"
   register: csvopps
+
+- name: Delete old csv file to preven cruft
+  ansible.builtin.file:
+    path: "{{ region }}-{{ timestamp }}.csv"
+    state: absent
 
 - name: Set Asana Stats
   set_stats:
