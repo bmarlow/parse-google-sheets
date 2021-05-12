@@ -18,12 +18,10 @@ parser.add_argument("-t", "--timestamp", help="a timestamp to avoid file colliss
 # grab the args from the argparse object
 args = parser.parse_args()
 
-# define prettier names
+# define prettier names and strip some whitespace
 auth = args.auth
-pod = args.pod
-timestamp = args.timestamp
-
-# TODO: figure out where leading whitespace comes from...
+pod = args.pod.strip()
+timestamp = args.timestamp.strip()
 spreadsheet_id = args.spreadsheet_id.strip()
 
 # convert range into a list
