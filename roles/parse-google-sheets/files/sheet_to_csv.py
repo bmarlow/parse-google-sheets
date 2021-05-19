@@ -64,8 +64,11 @@ try:
   with open(pod + '-' + timestamp + '.csv', 'w') as f:
     write = csv.writer(f)
     write.writerow(row_headers)
+    print('Row headers are:')
+    print(row_headers)
     for line in data_rows:
       write.writerow(line)
+      print(line)
   
 
 # if it blows up, tell us why

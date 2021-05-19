@@ -30,6 +30,11 @@
       - "-t {{ timestamp }}"
   register: py_output
 
+- name: Print Python Debugging info
+  debug:
+    var: py_output
+    verbosity: 2
+
 - name: Use CSV module to read in data
   read_csv:
     path: "{{ region }}-{{ timestamp }}.csv"
