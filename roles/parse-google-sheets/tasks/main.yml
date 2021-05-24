@@ -44,8 +44,8 @@
   ansible.builtin.file:
     path: "{{ region }}-{{ timestamp }}.csv"
     state: absent
-  when: ansible_verbosity < 2
-  
+  when: ansible_verbosity <=  2
+
 - name: Set Asana Stats
   set_stats:
     data:
@@ -54,6 +54,3 @@
 - name: Print out CSV data
   debug:
     var: csvopps.list
-
-
-
