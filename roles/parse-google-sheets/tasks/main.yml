@@ -36,7 +36,7 @@
     verbosity: 2
 
 - name: Use CSV module to read in data
-  read_csv:
+  community.general.read_csv:
     path: "{{ region }}-{{ timestamp }}.csv"
   register: csvopps
 
