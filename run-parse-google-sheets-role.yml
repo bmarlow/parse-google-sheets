@@ -5,13 +5,13 @@
   - name: add Python modules
     ansible.builtin.pip:
       name:
-        - json
+        # - json
         - httplib2
         - google-api-python-client
       extra_args: --upgrade
     delegate_to: localhost
     run_once: true
-    
+
   - name: "Run the parse-google-sheets role"
     include_role:
       name: parse-google-sheets
