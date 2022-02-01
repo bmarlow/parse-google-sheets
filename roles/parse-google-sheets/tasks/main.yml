@@ -19,7 +19,7 @@
     timestamp: "{{ ansible_date_time.iso8601 }}"
 
 - name: Fetch sheet data
-  ansible.builtin.command: 
+  ansible.builtin.command:
     argv:
       - "/usr/bin/python3"
       - "{{ role_path }}/files/sheet_to_csv.py"
@@ -37,12 +37,12 @@
 
 - name: Use CSV module to read in data
   community.general.read_csv:
-    path: "{{ region }}-{{ timestamp }}.csv"
+    path: "/tmp/{{ region }}-{{ timestamp }}.csv"
   register: csvopps
 
 - name: Delete old csv file to preven cruft
   ansible.builtin.file:
-    path: "{{ region }}-{{ timestamp }}.csv"
+    path: "/tmp/{{ region }}-{{ timestamp }}.csv"
     state: absent
   when: ansible_verbosity <=  2
 

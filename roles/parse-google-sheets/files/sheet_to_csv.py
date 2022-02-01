@@ -48,7 +48,7 @@ try:
 
   # build oauth credential object
   credentials = service_account.Credentials.from_service_account_info(json_auth, scopes=scopes)
-  
+
   # define the service you wish to access
   service = discovery.build('sheets', 'v4', credentials=credentials)
 
@@ -61,7 +61,7 @@ try:
   data_rows = result.get('values')[1:]
 
   # write the data to a CSV for parsing
-  with open(pod + '-' + timestamp + '.csv', 'w') as f:
+  with open('/tmp/' + pod + '-' + timestamp + '.csv', 'w') as f:
     write = csv.writer(f)
     write.writerow(row_headers)
     print('Row headers are:')
@@ -69,12 +69,12 @@ try:
     for line in data_rows:
       write.writerow(line)
       print(line)
-  
+
 
 # if it blows up, tell us why
 except errors.HttpError as e:
   if e.resp.status == 403:
     print('HTTP_403 Error The service account does not have have permission to the requested document')
-    
+
 except OSError as e:
   print(e)
