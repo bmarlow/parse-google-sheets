@@ -61,7 +61,7 @@ try:
   data_rows = result.get('values')[1:]
 
   # write the data to a CSV for parsing
-  with open('/tmp/' + pod + '-' + timestamp + '.csv', 'w') as f:
+  with open(pod + '-' + timestamp + '.csv', 'w') as f:
     write = csv.writer(f)
     write.writerow(row_headers)
     print('Row headers are:')

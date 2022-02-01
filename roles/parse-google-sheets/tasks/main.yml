@@ -37,12 +37,12 @@
 
 - name: Use CSV module to read in data
   community.general.read_csv:
-    path: "/tmp/{{ region }}-{{ timestamp }}.csv"
+    path: "{{ region }}-{{ timestamp }}.csv"
   register: csvopps
 
 - name: Delete old csv file to preven cruft
   ansible.builtin.file:
-    path: "/tmp/{{ region }}-{{ timestamp }}.csv"
+    path: "{{ region }}-{{ timestamp }}.csv"
     state: absent
   when: ansible_verbosity <=  2
 
